@@ -35,9 +35,8 @@ jobs:
 
       #     args: deploy --only hosting
       - name : GITHUB CONTEXT
-        env:
+        # env:
           # context: ${{ toJSON(github) }}
-
         run: array = ${{github.commits}}
           echo "${array[0]}"
 
