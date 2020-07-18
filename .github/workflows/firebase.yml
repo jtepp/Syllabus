@@ -41,6 +41,10 @@ jobs:
 
 
       - name: IFTTT Webhook
+        env:
+          NAME: Syllabus
+          this: ONE
+          FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
         uses: alfredosalzillo/ifttt-webhook-action@v1
         with:
           event: github
@@ -50,8 +54,4 @@ jobs:
           value3: none
       
 
-        env:
-          NAME: Syllabus
-          this: ONE
-          FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
         
