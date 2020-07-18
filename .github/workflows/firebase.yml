@@ -23,9 +23,17 @@ jobs:
 
     steps:
 
-      - name: Checkout the repository
+      # - name: Checkout the repository
 
-        uses: actions/checkout@master
+      #   uses: actions/checkout@master
+      
+      # - name: Deploy to Firebase
+
+      #   uses: w9jds/firebase-action@master
+
+      #   with:
+
+      #     args: deploy --only hosting
       - name: IFTTT Webhook
         uses: alfredosalzillo/ifttt-webhook-action@v1
         with:
@@ -36,14 +44,7 @@ jobs:
           value3: none
       
 
-      - name: Deploy to Firebase
-
-        uses: w9jds/firebase-action@master
-
-        with:
-
-          args: deploy --only hosting
-
         env:
-
+          GITHUB_REPOSITORY_NAME: Syllabus
           FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
+        
