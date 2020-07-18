@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Domine:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 
-<body onscroll="up()">
+<body onload='up()' onscroll="up()">
   <header>
     <div onclick="location.href='index.html'">Syllabus</div>
   </header>
@@ -26,11 +26,13 @@
     <div style="height: 100%;"></div>
     <div>
       <div class="foot">
-        <span id="stort" class="pointer, nov" onclick="clock()">Get Started</span>
+        <span id="stort" class="nov">Get Started</span>
       </div>
       <h1 class="tit">How It Works</h1>
     </div>
   </div>
+
+  <script src="script.js"></script>
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-storage.js"></script>
@@ -55,7 +57,6 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
   </script>
-  <script src="script.js"></script>
 </body>
 
 </html>

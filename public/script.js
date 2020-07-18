@@ -1,36 +1,8 @@
-var rdy = true
-document.getElementById('upload').onclick = () => { uploadImage() }
-
-function uploadImage() {
-    if (rdy) {
-        rdy = false
-        const ref = firebase.storage().ref()
-        const file = document.getElementById('file').files[0]
-        const name = new Date() + '-' + file.name
-        const metadata = {
-            contentType: file.type
-        }
-        const task = ref.child(name).put(file, metadata)
-
-        task.then(snapshot => snapshot.ref.getDownloadURL()).then(url => {
-            console.log(url);
-            const img = new Image()
-            img.src = url
-            document.body.appendChild(img)
-            rdy = true
-        })
-    }
-}
-
-
-
-
-
 const key = "963fac04-be73-4bd4-96be-e74185fe5c1d";
+var upcount = 0
 var banner = document.getElementById("msg");
-var stort = document.getElementById("stort");
 var pron = {};
-var vv = document.documentElement.style;
+var allSyllables = []
 var input = document.getElementById("senc");
 var lim = document.getElementById("count");
 var rep = document.getElementById("rep");
@@ -41,42 +13,44 @@ var sylCount = 0;
 var sentence = "";
 var words = [];
 var bare = "";
+var guid;
 var dt = {};
+var uuid = window.localStorage.getItem('uuid') || window.localStorage.setItem('uuid', guid = uuidv4()) || guid;
 var prefix = "";
 var suffix = "";
 //var temp = "";
-
 if (window.location.href.includes("Page_2")) {
+
     cah();
     setTimeout(() => pls(), 1000)
     setTimeout(() => tableau(), 1100)
-
+    setTimeout(() => clearFolder(), 1150)
+    setTimeout(() => listn(), 1200)
 }
-function playsound(idd, wordd) {
-    var ddd = document.getElementById(idd);
-    ddd.innerHTML = tts.innerHTML = "<audio autplay='autoplay' src='" + "http://api.voicerss.org/?key=deb7fe38b565429d8821eba9fb313173&hl=en-us&src=" + word + "'></audio>"
 
-}
-function tableau() {
+async function tableau() {
+    allSyllables = []
+    sylCount = 0
     //make a table for each word
     words.forEach(word => {
-        var t = document.createElement("TABLE");
+        var t = document.createElement("div");
         t.setAttribute("id", "table" + word);
-        document.body.appendChild(t);
-        document.body.appendChild(document.createElement("hr"));
+        t.setAttribute("class", "table");
+        document.getElementById('tabcont').appendChild(t);
+        document.getElementById('tabcont').appendChild(document.createElement("hr"));
         var arr = syllables[word]
         arr.forEach(syl => {
-            var r = document.createElement("TR");
-            r.setAttribute("id", "tr" + word);
+            allSyllables.push(syl)
+            sylCount++
+            var r = document.createElement("div");
+            r.setAttribute("id", "tr" + syl);
+            r.setAttribute("class", "tr");
             document.getElementById("table" + word).appendChild(r);
 
-            var ds = document.createElement("TD");
-            ds.setAttribute('id', "d" + word)
+            var ds = document.createElement("div");
+            ds.setAttribute('id', "d" + syl)
+            ds.setAttribute('class', "syl")
             ds.innerText = syl;
-
-            var tts = document.createElement("TD");
-            tts.setAttribute('id', "tts" + word);
-            tts.setAttribute('onclick', "playsound('tts'," + syl + ")");
 
 
 
@@ -85,27 +59,53 @@ function tableau() {
 
 
             var vv = document.createElement("INPUT");
-            vv.setAttribute("id", "in" + word);
+            vv.setAttribute("id", "in" + syl);
             vv.setAttribute("type", "file");
             vv.setAttribute("multiple", "true");
             vv.setAttribute("accept", "audio/*, video/*");
-            document.getElementById("table" + word).appendChild(ds);
-            document.getElementById("table" + word).appendChild(tts);
-            document.getElementById("table" + word).appendChild(vv);
-            document.body.appendChild(document.createElement("br"));
+
+            const cvv = document.createElement('div')
+            cvv.setAttribute('class', 'cv')
+            cvv.appendChild(vv)
+
+            document.getElementById("tr" + syl).appendChild(ds);
+            document.getElementById("tr" + syl).appendChild(cvv);
+            document.getElementById('tabcont').appendChild(document.createElement("br"));
 
 
         })
 
     })
-
+    document
 
 
 }
 
 
+function canUpload() {
+    let can = true;
+    allSyllables.forEach(syl => {
+        if (document.getElementById('in' + syl).files.length == 0) can = false
+    })
+    return can
+}
 
+function listn() {
+    allSyllables.forEach(syl => {
+        const i = document.getElementById('in' + syl).onchange = () => {
+            const u = document.getElementById('ups')
+            if (canUpload()) {
+                u.style.background = 'green';
+                u.onclick = () => {
+                    allSyllables.forEach(syl => {
+                        sendUp(syl)
+                    })
+                }
+            }
 
+        }
+    })
+}
 
 async function cah() {
 
@@ -116,6 +116,8 @@ async function cah() {
     words = sentence.split(' ');
     console.log(words);
     await silly(sentence);
+    // await pls()
+    // await tableau()
 
 }
 
@@ -128,7 +130,7 @@ function charli(ev) {
     }
 }
 
-function pls() {
+async function pls() {
 
     for (k in dt) {
 
@@ -138,8 +140,10 @@ function pls() {
         if (here.ins == undefined) {
             try {
                 syllables[k] = (here.hwi.hw.split('*'));
+                // allSyllables.concat(here.hwi.hw.split('*'))
             } catch (TypeError) {
                 syllables[k] = [k];
+                // allSyllables.concat(k)
             }
         } else {
 
@@ -152,6 +156,7 @@ function pls() {
                     inta = ina.if.replace('*', '')
                     if (inta == k) {
                         syllables[k] = (ina.if.split('*'));
+                        // allSyllables.concat(ina.if.split('*'))
                         prefix = inta.slice(0, inta.indexOf(k));
                         suffix = inta.slice(inta.indexOf(k) + k.length, inta.length);
 
@@ -160,6 +165,8 @@ function pls() {
                 })
             } else {
                 syllables[k] = [k];
+                // allSyllables.concat(k);
+
 
             }
 
@@ -172,17 +179,15 @@ function pls() {
         nun.innerHTML += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 
     }
-    var totsyl = [];
-    for (a in syllables) totsyl.push(syllables[a])
 
 
     console.log(syllables)
     console.log(pron)
-    sylCount = totsyl.flat().length
+    // sylCount = allSyllables.length
     console.log(sylCount)
 }
 
-function silly() {
+async function silly() {
     try {
 
 
@@ -218,22 +223,20 @@ function silly() {
 
 
 function up() {
-    vv.setProperty("--y", (100 - window.scrollY / 3) / 100);
+    const s = document.getElementById("stort").style
+    const n = ((100 - window.scrollY / 3) / 100)
+    s.opacity = n
 
-    if (document.documentElement.style.getPropertyValue("--y") < 0.0) {
-        stort.classList.remove("pointer");
-    } else if (!stort.classList.contains("pointer")) {
-        stort.classList.add("pointer");
+    if (n < 0.0) {
+        s.cursor = 'default'
+        document.getElementById("stort").onclick = () => { }
+    } else {
+        s.cursor = 'pointer';
+        document.getElementById("stort").onclick = () => location.href = "Page_1.html";
     }
     //console.log((100-window.scrollY/3)/100);
 }
 
-function clock() {
-    if (document.documentElement.style.getPropertyValue("--y") < 0.0) {
-    } else {
-        location.href = "Page_1.html";
-    }
-}
 
 
 function replaceAll(tat, s, r) {
@@ -244,3 +247,53 @@ function replaceAll(tat, s, r) {
     }
     return sss.trim();
 };
+
+
+
+// var rdy = true
+// document.getElementById('upload').onclick = () => { uploadImage() }
+
+function clearFolder() {
+    const ref = firebase.storage().ref()
+    ref.child(uuid).listAll().then(r => {
+        r.items.forEach(a => {
+            ref.child(a.location.path_).delete()
+        })
+    })
+}
+
+
+function sendUp(syl) {
+    if (upcount < allSyllables.length) {
+        upcount++
+        document.getElementById('ups').style.background = 'var(--dark)'
+        const ref = firebase.storage().ref()
+        const el = document.getElementById('in' + syl)
+
+        for (let i = 0; i < el.files.length; i++) {
+            const file = el.files[i]
+            const name = uuid + '/' + syl//new Date() + ' - ' + file.name
+            const metadata = {
+                contentType: file.type
+            }
+            const task = ref.child(name).put(file, metadata)
+
+            task.then(snapshot => snapshot.ref.getDownloadURL()).then(url => {
+                document.getElementById('tr' + syl).style.background = 'green'
+                console.log(url)
+            })
+
+        }
+    }
+}
+
+
+
+
+
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}

@@ -9,7 +9,6 @@
     --dark: #393838;
     --mid: #bebdba;
     --light: #e6e4e1;
-    --y: 1;
 }
 .parallax {
     background-image: url(Resources/blur.png);
@@ -60,6 +59,8 @@ header > div {
     color: white;
     background: var(--dark);
     padding: 8px;
+    user-select: none;
+    cursor: pointer;
 }
 
 #stort {
@@ -72,16 +73,12 @@ header > div {
     justify-self: center;
     align-self: center;
 
-    transition: opacity 0.4s ease;
-    opacity: var(--y);
-    cursor: default;
+    transition: all 0.4s ease;
+    opacity: 1;
 }
 
 #stort:hover {
     font-size: 38pt;
-}
-.pointer {
-    cursor: pointer !important;
 }
 
 h2 {
@@ -118,18 +115,33 @@ h2 {
 }
 
 
-table{
-   width:fit-content;
-   background: var(--mid);
+input{
+    width: fit-content;
+    /* height:30px;     */
 }
-input{width: fit-content;
-    min-width: fit-content;}
+.table{
+    display: flex;
+    flex-direction: column;
+}
+.tr{ 
+    display: flex;
+    flex-direction: row;
+    text-align: right;
+}
+.syl{
+    background: var(--mid);
+    width:100px;
+    height: 30px;
+    line-height: 30px;
+    word-wrap: break-word;
 
-td{width:20%;
-    min-width: fit-content;
-text-align: right;}
+}
+.cv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-tr{}
 
 @viewport {
     zoom: 1;
