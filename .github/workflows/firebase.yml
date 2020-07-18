@@ -36,7 +36,7 @@ jobs:
       #     args: deploy --only hosting
       - name : GITHUB CONTEXT
         env:
-          GITHUB_CONTEXT: context
+          GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
 
 
@@ -45,9 +45,11 @@ jobs:
         with:
           event: github
           key: gE6jSCuBiANWubHmXlSuA
-          value1:  ${{env.GITHUB_CONTEXT}} AND ${{env.GITHUB_CONTEXT}}
+          value1:  ${{env.GITHUB_CONTEXT}} AND ${{env.THISONE}}
           value2: commitmsg
           value3: none
+          env: 
+            this: THISONE
       
 
         env:
