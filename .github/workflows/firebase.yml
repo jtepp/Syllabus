@@ -34,6 +34,8 @@ jobs:
         with:
 
           args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
 
       # - name : GITHUB CONTEXT
       #   env:
@@ -41,10 +43,6 @@ jobs:
       #   run: echo "${{env.msg}}"
 
       - name: IFTTT Webhook
-        env:
-          NAME: Syllabus
-          this: ONE
-          FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
         uses: alfredosalzillo/ifttt-webhook-action@v1
         with:
           event: github
