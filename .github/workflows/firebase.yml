@@ -46,7 +46,7 @@ jobs:
         with:
           event: github
           key: gE6jSCuBiANWubHmXlSuA
-          value1:  ${{env.GITHUB_CONTEXT}} AND ${{env.stupid}}
+          value1:  ${{stupid}} AND ${{env.stupid}}
           value2: commitmsg
           value3: none
       
