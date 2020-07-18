@@ -34,8 +34,6 @@ jobs:
       #   with:
 
       #     args: deploy --only hosting
-      - name : GITHUB CONTEXT
-        run: echo "$GITHUB_CONTEXT"
 
 
       - name: IFTTT Webhook
@@ -53,4 +51,5 @@ jobs:
           stupid: AHHHH
           NAME: Syllabus
           FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
+        run: echo "$GITHUB_CONTEXT"
         
