@@ -35,9 +35,9 @@ jobs:
 
       #     args: deploy --only hosting
       - name : GITHUB CONTEXT
-        # env:
-          # context: ${{ toJSON(github) }}
-        run: echo "${{ toJson(github) }} ${{ toJson(github['commits'][0]) }}"
+        env:
+          msg: ${{ toJSON(github.event.commits[0].message) }}
+        run: echo "${{env.msg}}"
 
       # - name: IFTTT Webhook
       #   env:
