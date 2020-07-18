@@ -37,20 +37,14 @@ jobs:
       - name : GITHUB CONTEXT
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
 
-      - name: get commit message
-        run: |
-           echo ::set-env name=commitmsg::$(git log --format=%B -n 1 ${{ github.event.after }})
-      - name: show commit message
-        run : echo $commitmsg
 
       - name: IFTTT Webhook
         uses: alfredosalzillo/ifttt-webhook-action@v1
         with:
           event: github
           key: gE6jSCuBiANWubHmXlSuA
-          value1:  ${{env.commitmsg}}
+          value1:  ${{env.commits.message}}
           value2: commitmsg
           value3: none
       
