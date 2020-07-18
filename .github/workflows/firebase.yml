@@ -36,8 +36,6 @@ jobs:
       #     args: deploy --only hosting
 
       - name: IFTTT Webhook
-      env: 
-        repo: HELLO  
       uses: alfredosalzillo/ifttt-webhook-action@v1
         with:
           event: github
@@ -47,6 +45,7 @@ jobs:
           value3: none
       
         env:
+        repo: HELLO  
           stupid: AHHHH
           NAME: Syllabus
           FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
