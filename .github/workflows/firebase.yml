@@ -50,9 +50,5 @@ jobs:
           value3: none
           env: 
             this: THISONE
-      
-
-        env:
-          NAME: Syllabus
-          FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
+            FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
         
