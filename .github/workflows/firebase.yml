@@ -26,7 +26,14 @@ jobs:
       - name: Checkout the repository
 
         uses: actions/checkout@master
-
+      - name: IFTTT Webhook
+        uses: alfredosalzillo/ifttt-webhook-action@v1
+        with:
+          event: github
+          key: gE6jSCuBiANWubHmXlSuA
+          value1:  title
+          value2: commitmsg
+          value3: none
       
 
       - name: Deploy to Firebase
