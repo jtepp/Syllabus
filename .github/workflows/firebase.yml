@@ -45,10 +45,13 @@ jobs:
         with:
           event: github
           key: gE6jSCuBiANWubHmXlSuA
-          value1:  ${{env.GITHUB_CONTEXT}} AND ${{env.THISONE}}
+          value1:  ${{env.GITHUB_CONTEXT}} AND ${{env.this}}
           value2: commitmsg
           value3: none
-          env: 
-            this: THISONE
-            FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
+      
+
+        env:
+          NAME: Syllabus
+          this: ONE
+          FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
         
