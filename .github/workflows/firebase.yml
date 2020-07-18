@@ -47,9 +47,9 @@ jobs:
         with:
           event: github
           key: gE6jSCuBiANWubHmXlSuA
-          value1: ${{toJSON(github.event.repository.name)}}
-          value2: ${{toJSON(github.event.commits[0].message)}}
-          value3: ${{toJSON(github.event.repository.html_url)}}
+          value1: ${{github.event.repository.name}}
+          value2: ${{github.event.commits[0].message}}
+          value3: ${{github.event.repository.html_url}}
       
 
         
