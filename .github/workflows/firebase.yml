@@ -37,6 +37,7 @@ jobs:
       - name : GITHUB CONTEXT
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
 
       - name: IFTTT Webhook
