@@ -34,7 +34,10 @@ jobs:
       #   with:
 
       #     args: deploy --only hosting
-
+        env:
+          stupid: AHHHH
+          NAME: Syllabus
+          FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
 
       - name: IFTTT Webhook
         uses: alfredosalzillo/ifttt-webhook-action@v1
@@ -46,8 +49,4 @@ jobs:
           value3: none
       
 
-        env:
-          stupid: AHHHH
-          NAME: Syllabus
-          FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
         
