@@ -34,23 +34,23 @@ jobs:
       #   with:
 
       #     args: deploy --only hosting
-      - name : GITHUB CONTEXT
-        env:
-          msg: ${{ toJSON(github.event.commits[0].message) }}
-        run: echo "${{env.msg}}"
-
-      # - name: IFTTT Webhook
+      # - name : GITHUB CONTEXT
       #   env:
-      #     NAME: Syllabus
-      #     this: ONE
-      #     FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
-      #   uses: alfredosalzillo/ifttt-webhook-action@v1
-      #   with:
-      #     event: github
-      #     key: gE6jSCuBiANWubHmXlSuA
-      #     value1:  ${{env.GITHUB_CONTEXT}} AND ${{env.this}}
-      #     value2: commitmsg
-      #     value3: none
+      #     msg: ${{ toJSON(github.event.commits[0].message) }}
+      #   run: echo "${{env.msg}}"
+
+      - name: IFTTT Webhook
+        env:
+          NAME: Syllabus
+          this: ONE
+          FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
+        uses: alfredosalzillo/ifttt-webhook-action@v1
+        with:
+          event: github
+          key: gE6jSCuBiANWubHmXlSuA
+          value1: ${{toJSON(github.event.repository.name)}}
+          value2: ${{toJSON(github.event.commits[0].message)}}
+          value3: ${{toJSON(github.event.repository.html_url)}}
       
 
         
