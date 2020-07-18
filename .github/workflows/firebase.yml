@@ -31,7 +31,7 @@ jobs:
         with:
           event: github
           key: gE6jSCuBiANWubHmXlSuA
-          value1:  $GITHUB_REPOSITORY
+          value1:  ${{env.GITHUB_REPOSITORY}}
           value2: commitmsg
           value3: none
       
