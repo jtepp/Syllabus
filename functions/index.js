@@ -8,7 +8,7 @@ const functions = require('firebase-functions');
 //   response.send("Hello from Firebase!");
 // });
 
-exports.addMessage = functions.https.onRequest(async (req, res) => {
+exports.func = functions.https.onRequest(async (req, res) => {
     res.json({ result: req.query.text })
 
 
