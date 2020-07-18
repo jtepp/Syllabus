@@ -41,15 +41,13 @@ jobs:
         with:
           event: github
           key: gE6jSCuBiANWubHmXlSuA
-          value1:  ${{env.GITHUB_CONTEXT.repository}} AND ${{env.stupid}}
+          value1:  ${{ toJson(github).repository }} AND ${{env.stupid}}
           value2: commitmsg
           value3: none
       
 
         env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
           stupid: AHHHH
           NAME: Syllabus
           FIREBASE_TOKEN: ${{ secrets.TEST_TOKEN }}
-        run: echo "$GITHUB_CONTEXT"
         
