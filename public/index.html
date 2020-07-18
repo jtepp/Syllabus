@@ -5,14 +5,32 @@
 <head>
   <meta charset=“UTF-8”>
   <link rel="stylesheet" href="style.css">
-  <title>Test</title>
+  <title>Syllabus | Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Domine:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 
-<body>
-  <h1>Boom</h1>
-  <input type="file" name="file" id="file" accept="image/*">
-  <button id="upload">Upload File</button>
+<body onscroll="up()">
+  <header>
+    <div onclick="location.href='index.html'">Syllabus</div>
+  </header>
+  <div class="parallax">
+    <div class="imj">
+      <center>
+        <div id="msg">
+          "Create your own reality" <br />
+          <span style="font-size: 1.8vw;">- Cornel Geomolean</span>
+        </div>
+      </center>
+    </div>
 
+    <div style="height: 100%;"></div>
+    <div>
+      <div class="foot">
+        <span id="stort" class="pointer, nov" onclick="clock()">Get Started</span>
+      </div>
+      <h1 class="tit">How It Works</h1>
+    </div>
+  </div>
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-storage.js"></script>
